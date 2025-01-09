@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/photographer.css" />
+    <title>Fisheye - Photographer</title>
+  </head>
+  <body>
+    <header>
+      <img src="assets/images/logo.png" class="logo" alt="Logo" />
+    </header>
+    <main id="main">
+      <section class="photograph-header">
+        <div class="photograph-info">
+          <div class="photograph-name">Photographer Name</div>
+          <div class="photograph-location">Photographer Location</div>
+          <div class="photograph-tagline">Photographer Tagline</div>
+        </div>
+        <button class="contact_button" onclick="displayModal()">
+          Contactez-moi
+        </button>
+        <div class="photograph-portrait-container">
+          <img src="" alt="" class="photograph-portrait" />
+        </div>
+      </section>
+      <!-- Media container for dynamic content -->
+      <section class="media-container"></section>
+    </main>
+    <!-- Template for media items -->
+    <template id="media-template">
+      <div class="media-item">
+        <div class="media-content"></div>
+        <div class="media-text">
+          <h3 class="media-title"></h3>
+          <div class="likes"></div>
+        </div>
+      </div>
+    </template>
+    <script src="scripts/pages/photographer.js"></script>
+  </body>
+</html>

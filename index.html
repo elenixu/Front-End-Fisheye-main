@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fisheye</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <a href="index.html" aria-label="Fisheye Home">
+        <img
+          src="assets/images/logo.png"
+          class="logo"
+          alt="Fisheye logo - Home"
+        />
+      </a>
+      <h1>Nos photographes</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main">
+      <div class="photographer_section"></div>
+    </main>
+
+    <!-- Photographer Card Template -->
+    <template id="photographer-card-template">
+      <article class="photographer-card">
+        <a href="#" class="photographer-link" aria-label="">
+          <img src="" alt="" class="photographer-image" />
+          <h2 class="photographer-name"></h2>
+        </a>
+        <div class="photographer-details">
+          <p class="photographer-location"></p>
+          <p class="photographer-tagline"></p>
+          <p class="photographer-price"></p>
+        </div>
+      </article>
+    </template>
+
+    <script src="scripts/templates/photographer.js"></script>
+    <script src="scripts/pages/index.js"></script>
+  </body>
+</html>

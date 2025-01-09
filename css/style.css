@@ -1,0 +1,99 @@
+@import url('photographer.css');
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  margin: 0;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 90px;
+}
+
+h1 {
+  color: #901c1c;
+  margin-right: 100px;
+}
+
+.logo {
+  display: flex;
+  width: 200px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.photographer_section {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 70px;
+  margin-top: 100px;
+}
+
+.photographer_section article {
+  justify-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.photographer_section article h2 {
+  color: #d3573c;
+  text-align: center;
+  font-family: 'DM Sans';
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  padding: 20px 0 0 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.photographer_section article img {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  align-items: center;
+  text-align: center;
+  display: flex;
+}
+
+.photographer-location {
+  color: #901c1c;
+  text-align: center;
+  font-family: 'DM Sans';
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.photographer-tagline {
+  color: #000;
+  text-align: center;
+  font-family: 'DM Sans';
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.photographer-price {
+  color: #757575;
+  text-align: center;
+  font-family: 'DM Sans';
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
