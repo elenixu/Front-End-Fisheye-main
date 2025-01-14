@@ -15,7 +15,7 @@ body {
 .photograph-header {
   background-color: #fafafa;
   height: 300px;
-  margin: 0 100px;
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -89,6 +89,7 @@ form div {
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
+  padding: 40px 0 40px 100px;
 }
 
 form input {
@@ -175,13 +176,63 @@ form input {
 
 /* Style for the title */
 .media-title {
-  font-size: 16px;
-  font-weight: bold;
-  margin: 8px 0 4px; /* Spacing above and below */
+  color: #901c1c;
+  font-family: 'DM Sans';
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 /* Style for the likes */
 .likes {
   font-size: 14px;
-  color: #555; /* Subtle text color */
+  color: #555;
+}
+
+/* Base modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+}
+
+.modal-content {
+  background: #db8876;
+  padding: 20px;
+  border-radius: 5px;
+  z-index: 1001;
+  position: relative;
+  width: 669px;
+  height: 900px;
+  flex-shrink: 0;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.no-scroll {
+  overflow: hidden;
 }

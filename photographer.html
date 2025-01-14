@@ -20,13 +20,43 @@
         <button class="contact_button" onclick="displayModal()">
           Contactez-moi
         </button>
+
+        <div id="contactModal" class="modal" aria-hidden="true">
+          <div class="modal-overlay" onclick="closeModal()"></div>
+          <div class="modal-content">
+            <button
+              class="modal-close"
+              onclick="closeModal()"
+              aria-label="Close Modal"
+            >
+              ✖
+            </button>
+            <h2>Contactez-moi</h2>
+            <form>
+              <label for="premon">Prenom</label>
+              <input type="text" id="prenom" name="prenom" required />
+
+              <label for="nom">Nom</label>
+              <input type="nom" id="nom" name="nom" required />
+
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required></input>
+
+              <label for="message">Votre message</label>
+              <textarea id="message" name="message" required></textarea>
+
+              <button type="submit">Envoyer</button>
+            </form>
+          </div>
+        </div>
         <div class="photograph-portrait-container">
           <img src="" alt="" class="photograph-portrait" />
         </div>
       </section>
       <!-- Media container for dynamic content -->
-      <section class="media-container"></section>
+      
     </main>
+    <section class="media-container">
     <!-- Template for media items -->
     <template id="media-template">
       <div class="media-item">
@@ -37,6 +67,7 @@
         </div>
       </div>
     </template>
+  </section>
     <script src="scripts/pages/photographer.js"></script>
   </body>
 </html>
