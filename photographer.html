@@ -49,6 +49,14 @@
             </form>
           </div>
         </div>
+        <!-- Lightbox Modal -->
+<div id="lightbox_modal" class="modal" aria-hidden="true" role="dialog">
+  <button class="modal-close" aria-label="Close Lightbox">✖</button>
+  <div class="lightbox-content"></div>
+  <button class="lightbox-prev" aria-label="Previous Media">❮</button>
+  <button class="lightbox-next" aria-label="Next Media">❯</button>
+</div>
+
         <div class="photograph-portrait-container">
           <img src="" alt="" class="photograph-portrait" />
         </div>
@@ -56,18 +64,19 @@
       <!-- Media container for dynamic content -->
       
     </main>
-    <section class="media-container">
-    <!-- Template for media items -->
-    <template id="media-template">
-      <div class="media-item">
+    <template id="media-template" class="media-template">
+    <div class="media-container">
+      <div class="media-box">
         <div class="media-content"></div>
         <div class="media-text">
-          <h3 class="media-title"></h3>
-          <div class="likes"></div>
-        </div>
+        <div class="media-title"></div>
+        <div class="likes"></div>
       </div>
-    </template>
-  </section>
+      </div>
+    </div>
+    </div>
+</template>
     <script src="scripts/pages/photographer.js"></script>
+    <script src="scripts/utils/contactForm.js"></script>
   </body>
 </html>

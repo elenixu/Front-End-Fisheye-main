@@ -89,7 +89,7 @@ form div {
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
-  padding: 40px 0 40px 100px;
+  padding: 40px 0 40px 0;
 }
 
 form input {
@@ -144,15 +144,11 @@ form input {
 }
 
 .media-container {
-  /*display: flex;
-  flex-direction: row;
-  justify-content: center;
-  grid-row: auto;*/
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.media-item {
+.media-box {
   display: flex;
   flex-direction: column;
 }
@@ -166,10 +162,9 @@ form input {
 /* Style for the media content (image or video) */
 .media-content img,
 .media-content video {
-  max-width: 100%;
-  height: auto;
   width: 350px;
-  height: 300px;
+  height: 351px;
+  flex-shrink: 0;
   object-fit: cover;
   border-radius: 5px;
 }
@@ -186,8 +181,12 @@ form input {
 
 /* Style for the likes */
 .likes {
-  font-size: 14px;
-  color: #555;
+  color: #901c1c;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 /* Base modal styles */
@@ -218,8 +217,8 @@ form input {
   border-radius: 5px;
   z-index: 1001;
   position: relative;
-  width: 669px;
-  height: 900px;
+  width: 40%;
+  height: fit-content;
   flex-shrink: 0;
 }
 
