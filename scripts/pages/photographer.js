@@ -74,7 +74,7 @@ function initializeLightbox(media) {
   const lightboxContent = document.querySelector(
     '#lightbox_modal .lightbox-content'
   )
-  const closeButton = lightboxModal.querySelector('.modal-close')
+  const closeButton = lightboxModal.querySelector('.modal-close-lightbox')
   const nextButton = document.querySelector('.lightbox-next')
   const prevButton = document.querySelector('.lightbox-prev')
   let currentMediaIndex = 0
