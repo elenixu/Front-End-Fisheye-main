@@ -20,7 +20,6 @@
         <button class="contact_button" onclick="displayModal()">
           Contactez-moi
         </button>
-
         <div id="contactModal" class="modal" aria-hidden="true">
           <div class="modal-overlay" onclick="closeModal()"></div>
           <div class="modal-content">
@@ -33,17 +32,20 @@
             </button>
             <h2>Contactez-moi</h2>
             <form>
-              <label for="premon">Prenom</label>
-              <input type="text" id="prenom" name="prenom" required />
+              <div role="group" aria-labelledby="coordonnes">
+                <label for="prenom">Prenom</label>
+                <input type="text" id="prenom" name="prenom" required />
 
-              <label for="nom">Nom</label>
-              <input type="nom" id="nom" name="nom" required />
+                <label for="nom">Nom</label>
+                <input type="nom" id="nom" name="nom" required />
 
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" required></input>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required></input>
+              </div>
 
               <label for="message">Votre message</label>
               <textarea id="message" name="message" required></textarea>
+            
 
               <button type="submit">Envoyer</button>
             </form>
@@ -61,8 +63,18 @@
           <img src="" alt="" class="photograph-portrait" />
         </div>
       </section>
-      <!--Media container for dynamic content-->
+
+      <!-- Sorter -->
+      <div class="sorting-container">
+        <label for="sorting-options">Sort by:</label>
+        <select id="sorting-options" aria-label="Sort media">
+          <option value="likes">Popularité</option>
+          <option value="date">Date</option>
+          <option value="title">Titre</option>
+        </select>
+      </div>
       
+      <!--Media container for dynamic content-->
     </main>
     <template id="media-template" class="media-template">
     <div class="media-container">
