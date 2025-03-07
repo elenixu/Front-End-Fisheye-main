@@ -1,6 +1,8 @@
 // Store likes globally to persist state (with both count and "liked" status)
 const likeState = {}
 
+let photographerMedia = {}
+
 // Fetch data from the JSON file
 async function fetchPhotographerData() {
   try {
@@ -34,7 +36,7 @@ function populatePhotographerHeader(photographer) {
   portraitElement.alt = `Portrait of ${photographer.name}`
 }
 
-// Render photographer media using HTML template
+// Render photographer media using HTML template //// controls for video hide until clicked
 function renderPhotographerMedia(media) {
   let mediaContainer = document.querySelector('.media-container')
 
@@ -138,7 +140,9 @@ function initializeLightbox(media) {
 
   function loadLightboxContent(index) {
     const mediaItem = media[index]
-    lightboxContent.innerHTML = ''
+    lightboxContent.innerHTML = '' // Clear previous content
+
+    const lightboxCaption = document.querySelector('.lightbox-caption') // Select the existing caption element
 
     if (mediaItem.image) {
       const img = document.createElement('img')
@@ -152,10 +156,8 @@ function initializeLightbox(media) {
       lightboxContent.appendChild(video)
     }
 
-    const caption = document.createElement('div')
-    caption.classList.add('lightbox-caption')
-    caption.textContent = mediaItem.title
-    lightboxContent.appendChild(caption)
+    // Update the existing caption
+    lightboxCaption.textContent = mediaItem.title
   }
 
   function showNextMedia() {
@@ -183,32 +185,24 @@ function initializeLightbox(media) {
 }
 
 // Sorting logic
-function initializeSorter(media) {
-  const sorter = document.getElementById('sorting-options')
-  if (!sorter) {
-    console.error('Sorting dropdown not found in the DOM!')
-    return
-  }
 
-  sorter.addEventListener('change', (e) => {
-    const criterion = e.target.value
-    const sortedMedia = [...media]
-
-    sortedMedia.sort((a, b) => {
-      switch (criterion) {
-        case 'likes':
-          return likeState[b.id].count - likeState[a.id].count
-        case 'title':
-          return a.title.localeCompare(b.title)
-        case 'date':
-          return new Date(b.date) - new Date(a.date)
-        default:
-          return 0
-      }
-    })
-
-    renderPhotographerMedia(sortedMedia)
+function sortMedia(criterion) {
+  // Sort the original photographerMedia array
+  photographerMedia.sort((a, b) => {
+    switch (criterion) {
+      case 'likes':
+        return likeState[b.id].count - likeState[a.id].count
+      case 'title':
+        return a.title.localeCompare(b.title)
+      case 'date':
+        return new Date(b.date) - new Date(a.date)
+      default:
+        return 0
+    }
   })
+
+  // Re-render the sorted media
+  renderPhotographerMedia(photographerMedia)
 }
 
 // Initialize photographer page
@@ -227,11 +221,138 @@ async function initPhotographerPage() {
   )
   if (photographer) populatePhotographerHeader(photographer)
 
-  const photographerMedia = data.media.filter(
+  photographerMedia = data.media.filter(
     (item) => item.photographerId === parseInt(photographerId, 10)
   )
   renderPhotographerMedia(photographerMedia)
-  initializeSorter(photographerMedia)
+  sortMedia('likes')
 }
 
 document.addEventListener('DOMContentLoaded', initPhotographerPage)
+
+//////// new toggle stuff /////////
+// Dropdown and Sorting Integration
+document.addEventListener('DOMContentLoaded', () => {
+  const filterMenuButton = document.querySelector('.btn_drop')
+  const filterMenu = document.querySelector('.dropdown_content')
+  const chevronIcon = document.querySelector('.sorter-icon')
+  const currentFilterText = document.querySelector('#current_filter')
+  const filterOptions = document.querySelectorAll('.dropdown_content li button')
+
+  // Toggle Dropdown Menu
+  filterMenuButton.addEventListener('click', () => {
+    const isExpanded = filterMenuButton.getAttribute('aria-expanded') === 'true'
+    filterMenuButton.setAttribute('aria-expanded', !isExpanded)
+    filterMenu.classList.toggle('show')
+    chevronIcon.classList.toggle('rotate', !isExpanded)
+  })
+
+  // Update Button Text, Trigger Sort, and Close Dropdown on Option Click
+  filterOptions.forEach((option) => {
+    option.addEventListener('click', (event) => {
+      const selectedOption = event.target.textContent.trim() // <--- TRIM HERE
+      currentFilterText.textContent = selectedOption
+
+      // Call sortMedia() with the corresponding criterion
+      switch (selectedOption) {
+        case 'Titre':
+          sortMedia('title')
+          break
+        case 'Popularité':
+          sortMedia('likes')
+          break
+        case 'Date':
+          sortMedia('date')
+          break
+        default:
+          console.error('Unknown sorting option:', selectedOption)
+      }
+
+      // Close Dropdown and Reset Rotation
+      filterMenu.classList.remove('show')
+      filterMenuButton.setAttribute('aria-expanded', 'false')
+      chevronIcon.classList.remove('rotate')
+    })
+  })
+
+  // Close Dropdown if Clicked Outside
+  document.addEventListener('click', (event) => {
+    if (
+      !filterMenu.contains(event.target) &&
+      !filterMenuButton.contains(event.target)
+    ) {
+      filterMenu.classList.remove('show')
+      filterMenuButton.setAttribute('aria-expanded', 'false')
+      chevronIcon.classList.remove('rotate')
+    }
+  })
+})
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.querySelector('.modal-content form')
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault() // Prevent form from submitting the traditional way
+
+    // Create a FormData object
+    const formData = new FormData(form)
+
+    // Collect data into an object
+    const data = {}
+    formData.forEach((value, key) => {
+      data[key] = value
+    })
+
+    // Display collected data in the console
+    console.log('Form Data:', data)
+
+    // Clear the form (optional)
+    form.reset()
+  })
+})
+
+////////modal data//////
+function displayModal() {
+  const modal = document.getElementById('contactModal')
+  const mainPhotographerName = document.querySelector(
+    '.photograph-header .photograph-name'
+  )
+  const modalPhotographerName = document.querySelector(
+    '.modal-photographer-name'
+  )
+
+  // Copy the photographer's name from the main header to the modal
+  modalPhotographerName.textContent = mainPhotographerName.textContent
+
+  // Show the modal
+  modal.setAttribute('aria-hidden', 'false')
+  modal.style.display = 'flex'
+}
+
+// Close Modal Function
+function closeModal() {
+  const modal = document.getElementById('contactModal')
+  modal.setAttribute('aria-hidden', 'true')
+  modal.style.display = 'none'
+}
+
+// Attach Event Listeners after DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+  // Open Modal Event
+  const contactButton = document.querySelector('.contact_button')
+  contactButton.addEventListener('click', displayModal)
+
+  // Close Modal Event on Close Button
+  const closeButton = document.querySelector('.modal-close')
+  closeButton.addEventListener('click', closeModal)
+
+  // Close Modal on Overlay Click
+  const modalOverlay = document.querySelector('.modal-overlay')
+  modalOverlay.addEventListener('click', closeModal)
+
+  // Close Modal on Escape Key Press
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeModal()
+    }
+  })
+})

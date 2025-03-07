@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/photographer.css" />
     <title>Fisheye - Photographer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
   </head>
   <body>
     <header>
@@ -30,33 +39,48 @@
             >
               ✖
             </button>
-            <h2>Contactez-moi</h2>
+            <h2 class="contact-title">Contactez-moi</h2>
+            <div class="modal-photographer-name"></div>
             <form>
               <div role="group" aria-labelledby="coordonnes">
-                <label for="prenom">Prenom</label>
+                <label class="contact-text" for="prenom">Prenom</label>
                 <input type="text" id="prenom" name="prenom" required />
 
-                <label for="nom">Nom</label>
-                <input type="nom" id="nom" name="nom" required />
+                <label class="contact-text" for="nom">Nom</label>
+                <input type="text" id="nom" name="nom" required />
 
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required></input>
+                <label class="contact-text" for="email">Email</label>
+                <input type="email" id="email" name="email" required />
               </div>
 
-              <label for="message">Votre message</label>
-              <textarea id="message" name="message" required></textarea>
-            
+              <label class="contact-text" for="message">Votre message</label>
+              <textarea
+                class="form-field"
+                id="message"
+                name="message"
+                required
+              ></textarea>
 
-              <button type="submit">Envoyer</button>
+              <button class="button-envoyer" type="submit">Envoyer</button>
             </form>
           </div>
         </div>
+
         <!-- Lightbox Modal -->
         <div id="lightbox_modal" class="modal" aria-hidden="true" role="dialog">
-          <button class="modal-close-lightbox" aria-label="Close Lightbox">✖</button>
-          <div class="lightbox-content"></div>
-          <button class="lightbox-prev" aria-label="Previous Media">❮</button>
-          <button class="lightbox-next" aria-label="Next Media">❯</button>
+          <div class="lightbox-container-1">
+            <div class="lightbox-container-2">
+              <div class="lightbox-content"></div>
+              <div class="lightbox-caption"></div>
+              <button class="lightbox-prev" aria-label="Previous Media">
+                ❮
+              </button>
+              <button class="lightbox-next" aria-label="Next Media">❯</button>
+            </div>
+            <button class="modal-close-lightbox" aria-label="Close Lightbox">
+              <i class="fa-solid fa-x"></i>
+            </button>
+          </div>
         </div>
 
         <div class="photograph-portrait-container">
@@ -65,29 +89,69 @@
       </section>
 
       <!-- Sorter -->
-      <div class="sorting-container">
-        <label for="sorting-options">Sort by:</label>
-        <select id="sorting-options" aria-label="Sort media">
-          <option value="likes">Popularité</option>
-          <option value="date">Date</option>
-          <option value="title">Titre</option>
-        </select>
+      <div class="sorter-container">
+        <div>Trier par</div>
+        <div class="filter_section">
+          <div class="dropdown">
+            <button
+              class="btn_drop"
+              type="button"
+              role="button"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+              aria-controls="filter-options"
+              aria-label="Sort by"
+            >
+              <span id="current_filter">Titre</span>
+              <span
+                class="fa-solid fa-chevron-up sorter-icon"
+                aria-hidden="true"
+              ></span>
+            </button>
+
+            <ul class="dropdown_content" aria-hidden="true">
+              <li role="option">
+                <button type="button" tabindex="-1" aria-label="Sort by title">
+                  Titre
+                </button>
+              </li>
+              <hr class="sorting-divider" />
+              <li role="option">
+                <button
+                  type="button"
+                  tabindex="-1"
+                  aria-label="Sort by popularity"
+                >
+                  Popularité
+                </button>
+              </li>
+              <hr class="sorting-divider" />
+              <li role="option">
+                <button type="button" tabindex="-1" aria-label="Sort by date">
+                  Date
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-      
-      <!--Media container for dynamic content-->
+
+      <!-- Media container for dynamic content -->
+      <section class="photograph-body">
+        <template id="media-template">
+          <div class="media-container">
+            <div class="media-box">
+              <div class="media-content"></div>
+              <div class="media-text">
+                <div class="media-title"></div>
+                <div class="likes"></div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </section>
     </main>
-    <template id="media-template" class="media-template">
-    <div class="media-container">
-      <div class="media-box">
-        <div class="media-content"></div>
-        <div class="media-text">
-        <div class="media-title"></div>
-        <div class="likes"></div>
-      </div>
-      </div>
-    </div>
-    </div>
-</template>
+
     <script src="scripts/pages/photographer.js"></script>
     <script src="scripts/utils/contactForm.js"></script>
   </body>
