@@ -63,15 +63,19 @@ function renderPhotographerMedia(media) {
       const img = document.createElement('img')
       img.src = `assets/photographers/${item.image}`
       img.alt = item.title
-      img.dataset.index = index
       mediaContent.appendChild(img)
     } else if (item.video) {
       const video = document.createElement('video')
       video.src = `assets/photographers/${item.video}`
       video.controls = true
-      video.dataset.index = index
       mediaContent.appendChild(video)
     }
+
+    // Make the entire mediaContent focusable + accessible
+    mediaContent.tabIndex = 0
+    mediaContent.setAttribute('role', 'button')
+    mediaContent.setAttribute('aria-label', `${item.title}, open in lightbox`)
+    mediaContent.dataset.index = index
 
     title.textContent = item.title
 
@@ -176,14 +180,35 @@ function initializeLightbox(media) {
   nextButton.addEventListener('click', showNextMedia)
   prevButton.addEventListener('click', showPreviousMedia)
 
-  document
-    .querySelectorAll('.media-content img, .media-content video')
-    .forEach((element) => {
-      element.addEventListener('click', (e) => {
-        const index = parseInt(e.target.dataset.index, 10)
-        openLightbox(index)
-      })
+  document.querySelectorAll('.media-content').forEach((element) => {
+    element.addEventListener('click', (e) => {
+      const index = parseInt(e.currentTarget.dataset.index, 10)
+      openLightbox(index)
     })
+
+    element.addEventListener('keydown', (e) => {
+      const index = parseInt(e.currentTarget.dataset.index, 10)
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        openLightbox(index)
+      }
+    })
+  })
+  document.addEventListener('keydown', (e) => {
+    if (lightboxModal.style.display !== 'flex') return
+
+    switch (e.key) {
+      case 'ArrowRight':
+        showNextMedia()
+        break
+      case 'ArrowLeft':
+        showPreviousMedia()
+        break
+      case 'Escape':
+        closeLightbox()
+        break
+    }
+  })
 }
 
 // Sorting logic
@@ -311,8 +336,32 @@ document.addEventListener('DOMContentLoaded', () => {
     form.reset()
   })
 })
+// Trap focus inside modal
+function trapFocus(modal) {
+  const focusableElements = modal.querySelectorAll(
+    'a[href], button, textarea, input[type="text"], input[type="email"], input[type="submit"], [tabindex]:not([tabindex="-1"])'
+  )
+  const firstElement = focusableElements[0]
+  const lastElement = focusableElements[focusableElements.length - 1]
 
-////////modal data//////
+  modal.addEventListener('keydown', function (e) {
+    if (e.key === 'Tab') {
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          e.preventDefault()
+          lastElement.focus()
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          e.preventDefault()
+          firstElement.focus()
+        }
+      }
+    }
+  })
+}
+
+// Enhance contact modal with accessibility
 function displayModal() {
   const modal = document.getElementById('contactModal')
   const mainPhotographerName = document.querySelector(
@@ -322,12 +371,16 @@ function displayModal() {
     '.modal-photographer-name'
   )
 
-  // Copy the photographer's name from the main header to the modal
   modalPhotographerName.textContent = mainPhotographerName.textContent
 
-  // Show the modal
   modal.setAttribute('aria-hidden', 'false')
   modal.style.display = 'flex'
+
+  trapFocus(modal) // Trap focus in modal
+  const firstFocusable = modal.querySelector(
+    'button, input, textarea, select, a[href], [tabindex]:not([tabindex="-1"]):not([disabled])'
+  )
+  if (firstFocusable) firstFocusable.focus() // Set initial focus
 }
 
 // Close Modal Function
@@ -336,6 +389,23 @@ function closeModal() {
   modal.setAttribute('aria-hidden', 'true')
   modal.style.display = 'none'
 }
+
+// Close modal after form submission
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.querySelector('.modal-content form')
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault()
+    const formData = new FormData(form)
+    const data = {}
+    formData.forEach((value, key) => {
+      data[key] = value
+    })
+    console.log('Form Data:', data)
+    form.reset()
+    closeModal() // Automatically close modal on submit
+  })
+})
 
 // Attach Event Listeners after DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
