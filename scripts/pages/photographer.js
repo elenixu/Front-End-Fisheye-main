@@ -41,10 +41,12 @@ function renderPhotographerMedia(media) {
   let mediaContainer = document.querySelector('.media-container')
 
   if (!mediaContainer) {
+    console.log('Creating new media-container')
     mediaContainer = document.createElement('div')
     mediaContainer.classList.add('media-container')
     document.querySelector('#main').appendChild(mediaContainer)
   } else {
+    console.log('Reusing existing media-container')
     mediaContainer.innerHTML = '' // Clear only media, not header or sorter
   }
 

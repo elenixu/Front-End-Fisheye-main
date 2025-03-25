@@ -1,6 +1,9 @@
 body {
-  max-width: 1200px;
-  margin-left: 40px;
+  max-width: 1500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #contact_modal {
@@ -53,7 +56,7 @@ body {
 .photograph-header {
   background-color: #fafafa;
   height: 300px;
-  width: 88vw;
+  /* width: 100%; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -86,7 +89,8 @@ body {
 
 .modal header {
   justify-content: space-between;
-  width: 100%;
+  /* width: 100%; */
+  max-width: 1500px;
 }
 
 .modal header img {
@@ -180,14 +184,11 @@ form input {
   padding: 50px;
 }
 
-.media {
-  width: 1200px;
-}
-
 .media-container {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: 1fr 1fr 1fr;
+  max-width: 1500px;
+  gap: 30px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .media-box {
@@ -204,13 +205,18 @@ form input {
 /* Style for the media content (image or video) */
 .media-content img,
 .media-content video {
-  width: 27vw;
-  height: 38vh;
+  width: 28vw;
+  height: 39vh;
   flex-shrink: 0;
   object-fit: cover;
   border-radius: 5px;
   border: none;
 }
+
+/* .media-content {
+  width: 30%;
+  height: fit-content;
+} */
 
 /* Style for the title */
 .media-title {
@@ -414,6 +420,7 @@ button {
 
 .sorter-icon {
   transition: transform 0.3s ease;
+  color: #fff;
 }
 
 .sorter-icon.rotate {
